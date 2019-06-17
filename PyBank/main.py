@@ -1,6 +1,7 @@
 import os
 import csv
 
+#csvpath = os.path.join(".", "Resources", "budget_data.csv") # look up file from relative path
 csvpath = os.path.join("C:/Bootclassactivities/SMUDAL201905DATA5/02-Homework/03-Python/Instructions/PyBank/Resources/budget_data.csv")
 
 profit = 0
