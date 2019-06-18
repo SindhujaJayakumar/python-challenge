@@ -11,10 +11,10 @@ total = 0
 months = 0
 
 prev_month = 0
-inc_dec = 0
+incdec = 0
 great_inc = 0
 great_dec = 0
-sum_inc_dec = 0
+sum_incdec = 0
 average = 0
 index = 0
 
@@ -25,21 +25,21 @@ with open(csvpath, newline="") as csvfile:
 
    for row in csv_reader:
        amount = float(row[1])
-       #profit_list.append(amount)
+       
        if amount > 0:
            profit = profit + amount
        else:
            loss = loss + amount
 
-       inc_dec = amount - prev_month
+       incdec = amount - prev_month
        if index != 0:
-           sum_inc_dec = sum_inc_dec + inc_dec
+           sum_incdec = sum_incdec + incdec
 
-       if (inc_dec > 0) and (inc_dec > great_inc):
-           great_inc = inc_dec
+       if (incdec > 0) and (incdec > great_inc):
+           great_inc = incdec
            month_row_inc = row[0]
-       elif (inc_dec < 0) and (inc_dec < great_dec):
-           great_dec = inc_dec
+       elif (incdec < 0) and (incdec < great_dec):
+           great_dec = incdec
            month_row_dec = row[0]
 
        prev_month = amount
@@ -52,10 +52,10 @@ with open(csvpath, newline="") as csvfile:
    months = months - 1
 
    # Calculate the average dividing the total of changes by the number of changes
-   average = sum_inc_dec / (months - 1)
+   average = sum_incdec / (months - 1)
 
    print(f"Financial Analysis")
-   print(f"----------------------------")
+   print(f"-------------------")
    print(f"Total Months: {months}")
    print(f"Total: $ {total}")
    print(f"Average Change: $ {average}")
@@ -64,14 +64,14 @@ with open(csvpath, newline="") as csvfile:
 
 output_path = os.path.join ("Financial_Analysis.csv")
 
-# Open the file using "write" mode. Specify the variable to hold the contents
+# Opening the file using write mode
 with open(output_path, 'w', newline='') as csvfile:
 
    # Initialize csv.writer
    csvwriter = csv.writer(csvfile)
 
-   # Write the second row
-#    csvwriter.writerow([""])
+   #  second row
+
 
    csvwriter.writerow(["Financial Analysis"])
    csvwriter.writerow(["----------------------------"])
