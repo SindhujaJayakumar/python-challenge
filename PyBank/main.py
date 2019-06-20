@@ -64,7 +64,7 @@ with open(csvpath, newline="") as csvfile:
 
 output_path = os.path.join ("Financial_Analysis.csv")
 
-# Opening the file using write mode
+#  write mode
 with open(output_path, 'w', newline='') as csvfile:
 
    # Initialize csv.writer

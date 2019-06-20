@@ -54,21 +54,20 @@ with open(csvpath, newline="") as csvfile:
 
 output_path = os.path.join ("Election_Results.csv")
 
-   # Open the file using "write" mode. Specify the variable to hold the contents
 with open(output_path, 'w', newline='') as csvfile:
 
-   # Initialize csv.writer
+   # csvwriter
    csvwriter = csv.writer(csvfile)
 
-   # Write the second row
-   #csvwriter.writerow([""])
+   #second row
+   
 
    csvwriter.writerow(["Election Results"])
    csvwriter.writerow(["--------------------------------------"])
    csvwriter.writerow([f"Total Votes: {total_votes}"])
    csvwriter.writerow(["--------------------------------------"])
    
-   #Not sure how to write out each candidate's results
+   
    total_candidates_with_votes = len(candidate)
 
    while i < total_candidates_with_votes:
