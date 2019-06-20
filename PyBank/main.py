@@ -80,3 +80,5 @@ with open(output_path, 'w', newline='') as csvfile:
    csvwriter.writerow([f"Average Change: $ {average}"])
    csvwriter.writerow([f"Greatest Increase in Profits: {month_row_inc} ($ {great_inc})"])
    csvwriter.writerow([f"Greatest Decrease in Profits: {month_row_dec} ($ {great_dec})"])
+
+#PyBank commit count test
