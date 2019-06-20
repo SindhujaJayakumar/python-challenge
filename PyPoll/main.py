@@ -60,13 +60,13 @@ with open(output_path, 'w', newline='') as csvfile:
    csvwriter = csv.writer(csvfile)
 
    #second row
-   
 
    csvwriter.writerow(["Election Results"])
-   csvwriter.writerow(["--------------------------------------"])
+   csvwriter.writerow(["-------------------------------------"])
    csvwriter.writerow([f"Total Votes: {total_votes}"])
    csvwriter.writerow(["--------------------------------------"])
    
+   #Pypoll commit count test
    
    total_candidates_with_votes = len(candidate)
 

@@ -64,13 +64,13 @@ with open(csvpath, newline="") as csvfile:
 
 output_path = os.path.join ("Financial_Analysis.csv")
 
-#  write mode
+# write mode
 with open(output_path, 'w', newline='') as csvfile:
 
    # Initialize csv.writer
    csvwriter = csv.writer(csvfile)
 
-   #  second row
+   # second row
 
 
    csvwriter.writerow(["Financial Analysis"])
