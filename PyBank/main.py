@@ -1,84 +1,60 @@
-import os
 import csv
+import os
 
-#csvpath = os.path.join(".", "Resources", "budget_data.csv") # look up file from relative path
 csvpath = os.path.join("C:/Bootclassactivities/SMUDAL201905DATA5/02-Homework/03-Python/Instructions/PyBank/Resources/budget_data.csv")
 
-profit = 0
-loss = 0
-amount = 0
-total = 0
-months = 0
 
-prev_month = 0
-incdec = 0
-great_inc = 0
-great_dec = 0
-sum_incdec = 0
-average = 0
-index = 0
+#Variables for month and revenue data
+months = []
+revenue = []
 
-with open(csvpath, newline="") as csvfile:
-   csv_reader = csv.reader(csvfile, delimiter=",")
+#Read csv and parse data into lists
+#Revenue list will be list of integers
+with open(csvpath, 'r') as csvfile:
+	csvread = csv.reader(csvfile)
+	next(csvread)
 
-   csv_header = next(csvfile)
+	for row in csvread:
+		months.append(row[0])
+		revenue.append(int(row[1]))
 
-   for row in csv_reader:
-       amount = float(row[1])
-       
-       if amount > 0:
-           profit = profit + amount
-       else:
-           loss = loss + amount
+#Find total months
+total_months = len(months)
 
-       incdec = amount - prev_month
-       if index != 0:
-           sum_incdec = sum_incdec + incdec
+#Create greatest increase, decrease variabl;es and set them equal to the first revenue entry
+#Set total revenue = 0
+max_inc = revenue[0]
+max_dec = revenue[0]
+total_revenue = 0
 
-       if (incdec > 0) and (incdec > great_inc):
-           great_inc = incdec
-           month_row_inc = row[0]
-       elif (incdec < 0) and (incdec < great_dec):
-           great_dec = incdec
-           month_row_dec = row[0]
+#Loop through revenue indices and compare number to find greatest inc/dec
+#Also add each revenue to total revenue
+for r in range(len(revenue)):
+	if revenue[r] >= max_inc:
+		max_inc = revenue[r]
+		max_inc_month = months[r]
+	elif revenue[r] <= max_dec:
+		max_dec = revenue[r]
+		max_dec_month = months[r]
+	total_revenue += revenue[r]
 
-       prev_month = amount
-       index +=1
-
-   total = profit + loss
-
-   months = len(list(csv.reader(open(csvpath))))
-   # Check how many months are in the file not considering the header
-   months = months - 1
-
-   # Calculate the average dividing the total of changes by the number of changes
-   average = sum_incdec / (months - 1)
-
-   print(f"Financial Analysis")
-   print(f"-------------------")
-   print(f"Total Months: {months}")
-   print(f"Total: $ {total}")
-   print(f"Average Change: $ {average}")
-   print(f"Greatest Increase in Profits: {month_row_inc} ($ {great_inc})")
-   print(f"Greatest Decrease in Profits: {month_row_dec} ($ {great_dec})")
-
-output_path = os.path.join ("Financial_Analysis.csv")
-
-# write mode
-with open(output_path, 'w', newline='') as csvfile:
-
-   # Initialize csv.writer
-   csvwriter = csv.writer(csvfile)
-
-   # second row
+#Calculate average change in revenue
+average_delta = round(total_revenue/total_months, 2)
 
 
-   csvwriter.writerow(["Financial Analysis"])
-   csvwriter.writerow(["----------------------------"])
-   csvwriter.writerow([f"Total Months: {months}"])
-   csvwriter.writerow([f"Total: $ {total}"])
-   csvwriter.writerow([f"Average Change: $ {average}"])
-   csvwriter.writerow([f"Greatest Increase in Profits: {month_row_inc} ($ {great_inc})"])
-   csvwriter.writerow([f"Greatest Decrease in Profits: {month_row_dec} ($ {great_dec})"])
+#Set path for output file
+output_path = os.path.join("C:/Bootclassactivities/GitExperiments/python-challenge/Outputpybank.txt")
 
-#PyBank commit count test
+#Opens the output destination in write mode and prints the summary
+with open(output_path, 'w') as writefile:
+    writefile.writelines('Financial Analysis\n')
+    writefile.writelines('----------------------------' + '\n')
+    writefile.writelines('Total Months: ' + str(total_months) + '\n')
+    writefile.writelines('Total Revenue: $' + str(total_revenue) + '\n')
+    writefile.writelines('Average Revenue Change: $' + str(average_delta) + '\n')
+    writefile.writelines('Greatest Increase in Revenue: ' + max_inc_month + ' ($' + str(max_inc) + ')'+ '\n')
+    writefile.writelines('Greatest Decrease in Revenue: ' + max_dec_month + ' ($' + str(max_dec) + ')')
+
+#Opens the output file in r mode and prints to Terminal
+with open(output_path, 'r') as readfile:
+	print(readfile.read())
